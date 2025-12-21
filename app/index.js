@@ -1,8 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {createRoot} from 'react-dom/client'
 import {
   HashRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link
 } from "react-router-dom"
@@ -11,6 +11,9 @@ import About from './Components/About'
 import Home from './Components/Home'
 import Contact from './Components/Contact'
 import Experiments from './Components/Experiments'
+import AFakeList from './Components/Experiments/AFakeList'
+import AnEditableList from './Components/Experiments/AnEditableList'
+import ResizableGrid from './Components/Experiments/ResizableGrid'
 
 import './index.css'
 
@@ -24,40 +27,40 @@ class App extends React.Component{
         <nav>
           <ul>
             <li>
-              <Link to={process.env.REACT_APP_URL + "/"}>Home</Link>
+              <Link to={``}>Home</Link>
             </li>
             <li>
-              <Link to={process.env.REACT_APP_URL + "/experiments"}>Experiments</Link>
+              <Link to={`experiments`}>Experiments</Link>
             </li>
             <li>
-              <Link to={process.env.REACT_APP_URL + "/about"}>About</Link>
+              <Link to={`about`}>About</Link>
             </li>
             <li>
-              <Link to={`${process.env.REACT_APP_URL}/contact`}>Contact</Link>
+              <Link to={`contact`}>Contact</Link>
             </li>
           </ul>
         </nav>
 
         <div>
-            <Switch>
-                <Route path="/experiments">
-                    <Experiments />
+            <Routes>
+                <Route path="experiments" element={<Experiments />}>
+                    <Route path={`afakelist`} element={<AFakeList />}>
+                    </Route>
+                    <Route path={`aneditablelist`} element={<AnEditableList />}>
+                    </Route>
+                    <Route path={`resizablegrid`} element={<ResizableGrid />}>
+                    </Route>
                 </Route>
-                <Route path="/about">
-                    <About />
+                <Route path="about" element={<About />}>
                 </Route>
-                <Route path="/contact">
-                    <Contact />
+                <Route path="contact" element={<Contact />}>
                 </Route>
-                <Route path="/">
-                    <Home />
+                <Route index element={<Home />}>
                 </Route>
-            </Switch>
+            </Routes>
         </div>
     </Router>)}
 }
 
-ReactDOM.render(
-   <App />,
-   document.getElementById('app')
-)
+const root = createRoot(document.getElementById("app"));
+root.render(<App />);

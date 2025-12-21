@@ -2,7 +2,9 @@ import React from 'react';
 // import { useDrag } from 'react-dnd'
 // import { ItemTypes } from './Constants'
 
-class ResizableGrid extends React.Component{
+import GridCell from './ResizableGrid/GridCell'
+
+class ResizableGrid extends React.Component {
 
     constructor(props) {
         super(props)
@@ -85,13 +87,11 @@ class ResizableGrid extends React.Component{
                     <br/>
                     {
                         [...Array(height).keys()].map((rowArray, rowIndex) => {
-                            return(<React.Fragment key={rowIndex}>
-                                <div>
-                                    {[...Array(width).keys()].map((columnArray, columnIndex) =>
-                                        <input key={columnIndex} defaultValue="test"></input>
-                                    )}
-                                </div>
-                            </React.Fragment>)
+                            return(<div key={rowIndex}>
+                                        {[...Array(width).keys()].map((columnArray, columnIndex) =>
+                                            <GridCell key={`${rowIndex}_${columnIndex}`} x={rowIndex} y={columnIndex}></GridCell>
+                                        )}
+                                   </div>)
                         })
                     }
                 </React.Fragment>
