@@ -1,5 +1,5 @@
 const path = require('path');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 module.exports = () => {
@@ -7,16 +7,14 @@ module.exports = () => {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-      inline: true,
-      contentBase: path.join(__dirname, 'dist'),
       compress: true,
       port: 8080,
-      watchOptions: {
-        index: 'index.html',
-        open: true,
-        poll: true,
-        watchContentBase: true
-      }
-    }  
+      watchFiles: {
+        paths: ['app/**/*.html', 'app/**/.js', 'app/**/.css'],
+        options: {
+          usePolling: true,
+        },
+      },
+    }
   });
 };
