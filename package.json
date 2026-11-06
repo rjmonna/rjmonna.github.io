@@ -30,12 +30,12 @@
   },
   "homepage": "https://github.com/rjmonna/rjmonna.github.io",
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.6",
-    "@babel/preset-react": "^7.28.5",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
-    "@typescript-eslint/parser": "^8.51.0",
-    "babel-loader": "^10.0.0",
+    "@typescript-eslint/parser": "^8.53.1",
+    "babel-loader": "^10.1.1",
     "css-loader": "^7.1.2",
     "dotenv": "^17.2.3",
     "eslint": "^9.39.2",
@@ -47,7 +47,7 @@
     "typescript": "^5.9.3",
     "webpack": "^5.104.1",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.3",
+    "webpack-dev-server": "^5.2.6",
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
@@ -59,7 +59,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^7.11.0",
+    "react-router-dom": "^7.18.2",
     "stream-browserify": "^3.0.0",
     "vm-browserify": "^1.1.2"
   }
