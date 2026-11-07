@@ -10,7 +10,7 @@
             "name": "Launch Edge against localhost",
             "preLaunchTask": "start-dev-server",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}/app",
+            "webRoot": "${workspaceFolder}",
             "runtimeExecutable": "/usr/bin/microsoft-edge"
         },
         {
@@ -19,7 +19,7 @@
             "name": "Launch Firefox against localhost",
             "preLaunchTask": "start-dev-server",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}/app",
+            "webRoot": "${workspaceFolder}",
             "runtimeExecutable": "firefox"
         }
     ]
