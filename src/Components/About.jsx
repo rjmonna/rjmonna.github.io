@@ -1,12 +1,9 @@
-import React from 'react'
-
-class About extends React.Component{
-    render(){
-        return(<React.Fragment>
-            <p>rjmonna</p>
-            <p>It&apos;s me!</p>
-        </React.Fragment>)
-    }
+export default function About() {
+  return (
+    <>
+      <h2>About</h2>
+      <p>rjmonna</p>
+      <p>It&apos;s me!</p>
+    </>
+  )
 }
-
-export default About

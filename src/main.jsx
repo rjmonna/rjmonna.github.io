@@ -1,14 +1,10 @@
-import React from 'react'
-import {createRoot} from 'react-dom/client'
-import {
-  HashRouter as Router,
-  Routes,
-  Route,
-  Link
-} from "react-router-dom"
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
-import About from './Components/About'
+import Layout from './Components/Layout'
 import Home from './Components/Home'
+import About from './Components/About'
 import Contact from './Components/Contact'
 import Experiments from './Components/Experiments'
 import AFakeList from './Components/Experiments/AFakeList'
@@ -17,50 +13,26 @@ import ResizableGrid from './Components/Experiments/ResizableGrid'
 
 import './index.css'
 
-class App extends React.Component{
-    render(){
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('Looks like we are in development mode!')
-      }
-
-      return(<Router>
-        <nav>
-          <ul>
-            <li>
-              <Link to={``}>Home</Link>
-            </li>
-            <li>
-              <Link to={`experiments`}>Experiments</Link>
-            </li>
-            <li>
-              <Link to={`about`}>About</Link>
-            </li>
-            <li>
-              <Link to={`contact`}>Contact</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <div>
-            <Routes>
-                <Route path="experiments" element={<Experiments />}>
-                    <Route path={`afakelist`} element={<AFakeList />}>
-                    </Route>
-                    <Route path={`aneditablelist`} element={<AnEditableList />}>
-                    </Route>
-                    <Route path={`resizablegrid`} element={<ResizableGrid />}>
-                    </Route>
-                </Route>
-                <Route path="about" element={<About />}>
-                </Route>
-                <Route path="contact" element={<Contact />}>
-                </Route>
-                <Route index element={<Home />}>
-                </Route>
-            </Routes>
-        </div>
-    </Router>)}
+function App() {
+  return (
+    <HashRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="experiments" element={<Experiments />} />
+          <Route path="experiments/afakelist" element={<AFakeList />} />
+          <Route path="experiments/aneditablelist" element={<AnEditableList />} />
+          <Route path="experiments/resizablegrid" element={<ResizableGrid />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  )
 }
 
-const root = createRoot(document.getElementById("app"));
-root.render(<App />);
+createRoot(document.getElementById('app')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)

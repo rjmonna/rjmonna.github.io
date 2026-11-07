@@ -10,7 +10,14 @@ rjmonna.github.io
 
 ### Development
 
-Clone repository, add .env file
-and run server at port 8080 with
-    ```npm start run```
-or start debugging with Chrome.
+Clone the repository, run `npm install`, then start the dev server at http://localhost:8080 with
+
+    npm run dev
+
+or start debugging from VS Code (Edge or Firefox launch configurations).
+
+Other scripts: `npm run build`, `npm run preview`, `npm run lint`.
+
+### Deployment
+
+Pushing to `master` builds the site and publishes it with GitHub Actions. In the repository settings, set Pages → Source to **GitHub Actions**.

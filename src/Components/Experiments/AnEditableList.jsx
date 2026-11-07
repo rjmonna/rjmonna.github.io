@@ -1,113 +1,53 @@
-import React from 'react'
+import { useState } from 'react'
 
-class AnEditableList extends React.Component{
+const STORAGE_KEY = 'AnEditableListItems'
 
-    constructor(props) {
-        super(props)
+const initialItems = [
+  { id: 1, value: 'A' },
+  { id: 2, value: 'B' },
+]
 
-        this._anEditableListLocalStorageKey = 'AnEditableListItems'
+export default function AnEditableList() {
+  const [items, setItems] = useState(initialItems)
 
-        this.state = {
-            error: null,
-            isLoaded: false,
-            items: {}
-        }
+  const add = () =>
+    setItems((current) => [
+      ...current,
+      { id: Math.max(0, ...current.map((i) => i.id)) + 1, value: 'added' },
+    ])
 
-        this.handleSaveLocalStorage = this.handleSaveLocalStorage.bind(this)
-        this.handleLoadLocalStorage = this.handleLoadLocalStorage.bind(this)
-        this.handleChangeValue = this.handleChangeValue.bind(this)
-        this.handleDelete = this.handleDelete.bind(this)
-        this.handleAddItem = this.handleAddItem.bind(this)
-    }
+  const change = (id, value) =>
+    setItems((current) => current.map((i) => (i.id === id ? { ...i, value } : i)))
 
-    componentDidMount() {
-        this.setState({
-            isLoaded: true,
-            items: { data: [{ id: 1, value: 'A' }, { id: 2, value: 'B' }] }
-        })
-    }
+  const remove = (id) => setItems((current) => current.filter((i) => i.id !== id))
 
-    handleAddItem() {
-        const data = this.state.items.data
+  const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
 
-        const dataToPush = {id: Math.max(...data.map(i => i.id)) + 1, value: 'added'}
+  const load = () => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (stored) setItems(JSON.parse(stored))
+  }
 
-        data.push(dataToPush)
-
-        this.setState({
-            isLoaded: true,
-            items: {
-                data: data
-            }
-        })
-    }
-
-    handleSaveLocalStorage() {
-        const data = this.state.items.data;
-
-        window.localStorage.setItem(this._anEditableListLocalStorageKey, JSON.stringify(data))
-    }
-
-    handleLoadLocalStorage(){
-        this.setState({
-            isLoaded: true,
-            items: {
-                data: JSON.parse(window.localStorage.getItem(this._anEditableListLocalStorageKey))
-            }
-        })
-    }
-
-    handleChangeValue(e) {
-        const data = this.state.items.data
-
-        const found = data.find((dataItem) => dataItem.id == e.target.dataset.key)
-
-        if (found) {
-            found.value = e.target.value
-        }
-
-        this.setState({
-            isLoaded: true,
-            items: {
-                data: data
-            }
-        })
-    }
-
-    handleDelete(e) {
-        var data = this.state.items.data;
-
-        data = data.filter((currentValue) => currentValue.id != e.target.dataset.key)
-
-        this.setState({
-            isLoaded: true,
-            items: {
-                data: data
-            }
-        })
-    }
-
-    render(){
-        const { error, isLoaded, items } = this.state
-
-        if (error) {
-            return <div>Error: {error.message}</div>
-        } else if (!isLoaded) {
-            return <div>Loading...</div>
-        } else {
-            return (
-                <React.Fragment>
-                    <button onClick={this.handleAddItem}>Add</button> <button onClick={this.handleSaveLocalStorage}>Save localStorage</button> <button onClick={this.handleLoadLocalStorage}>Load localStorage</button>
-                    <br /><br />
-                    <ul>
-                        {items.data.map(item => (
-                            <li key={item.id}><input data-key={item.id} defaultValue={item.value} onChange={this.handleChangeValue}></input> <button data-key={item.id} onClick={this.handleDelete}>Remove</button></li>
-                        ))}
-                    </ul>
-                </React.Fragment>
-            )
-        }
-    }
+  return (
+    <>
+      <h2>An editable list</h2>
+      <div className="toolbar">
+        <button onClick={add}>Add</button>
+        <button onClick={save}>Save localStorage</button>
+        <button onClick={load}>Load localStorage</button>
+      </div>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            <input
+              aria-label={`Item ${item.id}`}
+              value={item.value}
+              onChange={(e) => change(item.id, e.target.value)}
+            />{' '}
+            <button onClick={() => remove(item.id)}>Remove</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
 }
-
-export default AnEditableList

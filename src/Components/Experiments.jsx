@@ -1,29 +1,18 @@
-import React from 'react'
-import {
-  Link,
-  Outlet
-} from "react-router-dom"
+import { Link } from 'react-router-dom'
+import { experiments } from './Layout'
 
-class Experiments extends React.Component{
-    render(){
-        return(<React.Fragment>
-            <p>These are my (simple) development experiments.</p>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to={`/experiments/afakelist`}>A fake list</Link>
-                        </li>
-                        <li>
-                            <Link to={`/experiments/aneditablelist`}>An editable list</Link>
-                        </li>
-                        <li>
-                            <Link to={`/experiments/resizablegrid`}>Resizable grid</Link>
-                        </li>
-                    </ul>
-                </nav>
-            <Outlet />
-        </React.Fragment>)
-    }
+export default function Experiments() {
+  return (
+    <>
+      <h2>Experiments</h2>
+      <p>These are my (simple) development experiments.</p>
+      <ul>
+        {experiments.map(({ to, label }) => (
+          <li key={to}>
+            <Link to={to}>{label}</Link>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
 }
-
-export default Experiments
