@@ -5,12 +5,22 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "msedge",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Launch Edge against localhost",
             "preLaunchTask": "start-dev-server",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}/app"
+            "webRoot": "${workspaceFolder}/app",
+            "runtimeExecutable": "/usr/bin/microsoft-edge"
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Launch Firefox against localhost",
+            "preLaunchTask": "start-dev-server",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/app",
+            "runtimeExecutable": "firefox"
         }
     ]
 }
