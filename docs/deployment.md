@@ -7,6 +7,8 @@
 1. **build** – checkout, Node 24 with npm cache, `npm ci`, `npm run lint`, `npm run build`, then `actions/upload-pages-artifact` uploads `dist/`.
 2. **deploy** – `actions/deploy-pages` publishes the artifact to the `github-pages` environment.
 
+This Vite workflow is the only Pages deployment workflow. Do not deploy the repository root with a Jekyll workflow: it publishes the uncompiled `index.html` and JSX instead of `dist/`.
+
 Day-to-day work happens on `develop`; merging into `master` deploys.
 
 ## One-time repository setting
@@ -26,6 +28,7 @@ Settings → Pages → **Source: GitHub Actions**. With the old "Deploy from a b
 | --- | --- |
 | Deploy job fails with a Pages/permissions error | Pages source is not set to GitHub Actions. |
 | Build fails in CI but works locally | Node version mismatch, or `package-lock.json` out of date (`npm ci` is strict). |
+| Browser blocks `/src/main.jsx` with a MIME type error | Pages is serving the source `index.html` rather than the Vite build. Check for another Pages deployment workflow and redeploy using `Deploy to GitHub Pages`. |
 | Blank page after deploy | Check the browser console. Assets must load from the site root; do not set a `base` in `vite.config.js` for a user site (`rjmonna.github.io`). |
 | 404 on a deep link | A route was linked without the hash router (`<a href>` instead of `<Link>`). |
 
