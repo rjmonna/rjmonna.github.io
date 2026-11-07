@@ -11,7 +11,7 @@
                 "background": {
                     "activeOnStart": true,
                      "beginsPattern": ".*",
-                     "endsPattern": ".+successfully\\."
+                     "endsPattern": "compiled (successfully|with)"
                 },
                 "pattern": {
                     "regexp": "",
